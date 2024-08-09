@@ -1,71 +1,63 @@
-# Looker Extension helloworld
+# Looker 拡張機能のビルド
 
-helloworld is a Looker extension using React and JavaScript.
+## はじめに
 
-## Getting Started for Development
+この記事ではLookerのアプリケーション拡張利用するため、React/JavaScript拡張機能のビルド方法について説明します。
 
-1. Install the dependencies with [Yarn](https://yarnpkg.com/).
+## Looker 拡張機能のビルドの始め方
 
-    ```sh
-    yarn install
-    ```
+おおまかな手順は以下の通りです。
 
-2. Build the project
+- マニュフェストファイルの作成
+- プロジェクトにマニュフェストファイルを追加
+- 実行環境の構築
+- 拡張機能のビルド
+- 拡張機能の実行
 
-    ```sh
-    yarn build
-    ```
+なお、今回はデプロイは行いません。
 
-3. Start the development server
+## マニュフェストファイルの作成
 
-    ```sh
-    yarn develop
-    ```
+まずは拡張機能をLookerに登録するためのマニュフェストファイルを作成します。
+以下のように定義して`manifest.lkml`というファイルを作成します。
 
-    The development server is now running and serving the JavaScript at https://localhost:8080/bundle.js.
-
-4. Now log in to Looker and create a new project.
-
-    Depending on the version of Looker, a new project can be created under:
-
-    - **Develop** => **Manage LookML Projects** => **New LookML Project**, or
-    - **Develop** => **Projects** => **New LookML Project**
-
-    Select "Blank Project" as the "Starting Point". This creates a new LookML project with no files.
-
-5. Create a `manifest` file
-
-   Either drag and upload the `manifest.lkml` file in this directory into your Looker project, or create a `manifest.lkml` with the same content. Change the `id`, `label`, or `url` as needed.
-
-   ```
-    project_name: "helloworld"
-    application: helloworld {
-        label: "helloworld React/JavaScript extension"
-        url: "https://localhost:8080/bundle.js"
-        entitlements: {
-          core_api_methods: ["me"]
-        }
+```
+project_name: "helloworld"
+application: helloworld {
+    label: "helloworld React/JavaScript extension"
+    url: "https://localhost:8080/bundle.js"
+    entitlements: {
+        core_api_methods: ["me"]
     }
-   ```
+}
+```
 
-6. Create a `model` LookML file in your project.
+## プロジェクトにマニュフェストファイルを追加
 
-   Typically, the model is named the same as the extension project. The model is used to control access to the extension.
+拡張機能はLookerのプロジェクトに追加する必要がありますが、今回は検証環境でやっていることもあるため
+既存のプロジェクトにマニュフェストファイルを追加します。
 
-   - [Configure the model you created](https://docs.looker.com/data-modeling/getting-started/create-projects#configuring_a_model) so that it has access to some connection (any connection).
+## 環境構築
 
-7. Connect the new project to Git.
+## 拡張機能のビルド
 
-   - Create a new repository on GitHub or a similar service, and follow the instructions to [connect your project to Git](https://docs.looker.com/data-modeling/getting-started/setting-up-git-connection)
+```sh
+yarn install
+```
 
-8. Commit the changes and deploy them to production through the Project UI.
+```sh
+yarn build
+```
 
-9. Reload the page and click the `Browse` dropdown menu. You should see the extension label in the list.
+## 拡張機能の実行
 
-   - The extension will load the JavaScript from the `url` you provided in the `application` definition. By default, this is `https://localhost:8080/bundle.js`. If you change the port your server runs on in the `package.json`, you will need to also update it in the `manifest.lkml`.
-   - Reloading the extension page will bring in any new code changes from the extension template.
+```sh
+yarn develop
+```
 
-## Deploying the extension
+[https://localhost:8080](https://localhost:8080)にアクセスします。
+
+## デプロイ
 
 To allow other people to use the extension, build the JavaScript bundle file and directly include it in the project.
 
@@ -73,13 +65,13 @@ To allow other people to use the extension, build the JavaScript bundle file and
 2. Drag and drop the generated `dist/bundle.js` file into the Looker project interface
 3. Modify your `manifest.lkml` to use `file` instead of `url`:
 
-   ```
-    project_name: "helloworld"
-    application: helloworld {
-        label: "A Looker React/JavaScript extension"
-        file: "bundle.js"
-        entitlements: {
-          core_api_methods: ["me"]
-        }
+```
+project_name: "helloworld"
+application: helloworld {
+    label: "A Looker React/JavaScript extension"
+    file: "bundle.js"
+    entitlements: {
+        core_api_methods: ["me"]
     }
-   ```
+}
+```
