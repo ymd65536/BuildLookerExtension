@@ -75,3 +75,11 @@ application: helloworld {
     }
 }
 ```
+
+## 参考
+
+- [Looker 拡張機能の概要](https://cloud.google.com/looker/docs/extension-overview?hl=ja)
+- [Looker データ ディクショナリの使用](https://cloud.google.com/looker/docs/using-looker-data-dictionary?hl=ja)
+- [Looker 拡張機能のビルド](https://cloud.google.com/looker/docs/extension-intro-to-building?hl=ja)
+- [app-data-dictionary](https://github.com/looker-open-source/app-data-dictionary/tree/master)
+- [Looker UI Components](https://looker-open-source.github.io/components/latest/?path=/docs/home--docs)
